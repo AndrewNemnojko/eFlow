@@ -1,5 +1,4 @@
 # eFlow 
-<h1>Automated Flower Bouquet Evaluation System</h1>
 
 <hr>
 
