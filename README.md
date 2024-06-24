@@ -1,7 +1,5 @@
 # eFlow 
 
-<hr>
-
 <h2>Overview</h2>
 <p>This project aims to address and rethink the evaluation process of complex products (specifically flower bouquets) on a WordPress site. The current issues faced include:</p>
 <ul>
@@ -29,17 +27,6 @@
     <li><strong>Inventory Management</strong>: Simplified inventory management with real-time data on flower availability and costs.</li>
     <li><strong>Cost Management</strong>: Accurate and quick cost calculation for each bouquet variation.</li>
 </ul>
-
-<hr>
-
-<h2>Contributing</h2>
-<ol>
-    <li>Fork the repository.</li>
-    <li>Create a new branch (<code>git checkout -b feature-branch</code>).</li>
-    <li>Make your changes and commit (<code>git commit -am 'Add new feature'</code>).</li>
-    <li>Push to the branch (<code>git push origin feature-branch</code>).</li>
-    <li>Create a new Pull Request.</li>
-</ol>
 
 <hr>
 
