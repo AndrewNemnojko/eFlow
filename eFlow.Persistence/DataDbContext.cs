@@ -10,6 +10,7 @@ namespace eFlow.Persistence
             : base(options) 
         { }    
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<FlowerEntity> Flowers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {          
             base.OnModelCreating(builder);          

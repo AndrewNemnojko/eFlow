@@ -1,7 +1,6 @@
-﻿
-using eFlow.Application.Interfaces;
-using eFlow.Application.Interfaces.Auth;
+﻿using eFlow.Application.Interfaces.Auth;
 using eFlow.Application.Interfaces.Caching;
+using eFlow.Application.Interfaces.Repositories;
 using eFlow.Application.Services;
 using eFlow.Infrastructure;
 using eFlow.Persistence;
@@ -28,10 +27,13 @@ builder.Services.AddDbContext<DataDbContext>(options =>
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IFlowerRepository, FlowerRepository>();
+
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<UserService>(); 
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<FlowerService>();
 builder.Services.AddSingleton<ICacheService, CacheService>();
 
 builder.Services.AddAuthentication(opt =>
@@ -39,8 +41,6 @@ builder.Services.AddAuthentication(opt =>
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-
-
 
 .AddJwtBearer(opt =>
 {

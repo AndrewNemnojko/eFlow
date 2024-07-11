@@ -1,8 +1,6 @@
-﻿
+﻿using eFlow.Core.Models;
 
-using eFlow.Core.Models;
-
-namespace eFlow.Application.Interfaces
+namespace eFlow.Application.Interfaces.Repositories
 {
     public interface IUserRepository
     {

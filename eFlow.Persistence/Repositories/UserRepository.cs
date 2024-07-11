@@ -1,6 +1,5 @@
-﻿
-using eFlow.Application.Interfaces;
-using eFlow.Application.Interfaces.Caching;
+﻿using eFlow.Application.Interfaces.Caching;
+using eFlow.Application.Interfaces.Repositories;
 using eFlow.Core.Models;
 using eFlow.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +29,7 @@ namespace eFlow.Persistence.Repositories
             await _dbContext.Users.AddAsync(userEntity);
             await _dbContext.SaveChangesAsync();
             await _cacheService
-                .SetAsync($"user{userEntity.Id}", userEntity);
+                .SetAsync($"user:{userEntity.Id}", userEntity);
         }
 
         public async Task<IList<User>> GetAllAsync()
@@ -50,7 +49,7 @@ namespace eFlow.Persistence.Repositories
 
         public async Task<User?> GetByEmailAsync(string email)
         {
-            var cacheKey = $"userByEmail-{email}";
+            var cacheKey = $"userByEmail:{email}";
             var cachedUser = await _cacheService.GetAsync<User>(cacheKey);
             if (cachedUser != null)
             {
@@ -81,7 +80,8 @@ namespace eFlow.Persistence.Repositories
 
         public async Task<User?> GetByIdAsync(Guid id)
         {
-            var cachedUser = await _cacheService.GetAsync<User>($"user{id}");
+            var cacheKey = $"user:{id}";
+            var cachedUser = await _cacheService.GetAsync<User>($"user:{id}");
             if (cachedUser != null)
             {
                 return cachedUser;
@@ -92,7 +92,7 @@ namespace eFlow.Persistence.Repositories
             if (userEntity == null)
                 return null;
 
-            return new User
+            var user = new User
             {
                 Id = userEntity.Id,
                 Name = userEntity.Name,
@@ -100,6 +100,8 @@ namespace eFlow.Persistence.Repositories
                 Email = userEntity.Email,
                 HashPassword = userEntity.HashPassword,
             };
+            await _cacheService.SetAsync(cacheKey, user);
+            return user;
         }
     
         public async Task<bool> RemoveAsync(Guid id)
@@ -112,7 +114,7 @@ namespace eFlow.Persistence.Repositories
 
             _dbContext.Users.Remove(userEntity);
             await _dbContext.SaveChangesAsync();
-            await _cacheService.RemoveAsync($"user{id}");
+            await _cacheService.RemoveAsync($"user:{id}");
             return true;
         }
 
@@ -130,7 +132,7 @@ namespace eFlow.Persistence.Repositories
             userEntity.HashPassword = user.HashPassword;
 
             await _dbContext.SaveChangesAsync();
-            await _cacheService.SetAsync($"user{user.Id}", userEntity);
+            await _cacheService.SetAsync($"user:{user.Id}", userEntity);
             return true;
         }
     }

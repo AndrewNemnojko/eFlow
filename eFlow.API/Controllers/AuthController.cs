@@ -1,4 +1,5 @@
 ﻿using eFlow.API.Contracts;
+using eFlow.API.Contracts.Auth;
 using eFlow.Application.Services;
 using eFlow.Core.Models;
 using Microsoft.AspNetCore.Mvc;
