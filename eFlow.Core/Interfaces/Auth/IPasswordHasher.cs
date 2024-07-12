@@ -1,6 +1,6 @@
 ﻿
 
-namespace eFlow.Application.Interfaces.Auth
+namespace eFlow.Core.Interfaces.Auth
 {
     public interface IPasswordHasher
     {

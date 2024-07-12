@@ -1,5 +1,5 @@
 ﻿
-using eFlow.Application.Interfaces.Caching;
+using eFlow.Core.Interfaces.Caching;
 using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using System.Text.Json;

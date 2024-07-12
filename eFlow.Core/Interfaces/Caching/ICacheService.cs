@@ -1,6 +1,6 @@
 ﻿
 
-namespace eFlow.Application.Interfaces.Caching
+namespace eFlow.Core.Interfaces.Caching
 {
     public interface ICacheService
     {

@@ -1,4 +1,4 @@
-﻿namespace eFlow.API.DTOs.Users
+﻿namespace eFlow.Application.DTOs
 {
     public record UserDTO
     ( string Name, string Email, string Role);

@@ -1,6 +1,6 @@
 ﻿
-using eFlow.Application.Interfaces.Repositories;
 using eFlow.Core.Models;
+using eFlow.Infrastructure.Repositories;
 
 namespace eFlow.Application.Services
 {
@@ -34,6 +34,11 @@ namespace eFlow.Application.Services
         public async Task<Flower> GetFlowerById(Guid id)
         {
             var data = await _flowerRepository.GetByIdAsync(id);
+            return data;
+        }
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var data = await _flowerRepository.RemoveAsync(id);
             return data;
         }
     }

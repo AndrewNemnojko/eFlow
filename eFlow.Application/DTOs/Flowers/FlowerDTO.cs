@@ -1,7 +1,8 @@
-﻿namespace eFlow.API.DTOs.Flowers
+﻿namespace eFlow.Application.DTOs
 {
     public record FlowerDTO
     (
+        Guid id,
         string Name,
         decimal Price,
         int InStock,

@@ -1,7 +1,6 @@
-﻿using eFlow.Application.Interfaces.Auth;
-using eFlow.Application.Interfaces.Repositories;
+﻿using eFlow.Core.Interfaces.Auth;
 using eFlow.Core.Models;
-using Microsoft.AspNetCore.Identity;
+using eFlow.Infrastructure.Repositories;
 using System.Security.Claims;
 
 namespace eFlow.Application.Services

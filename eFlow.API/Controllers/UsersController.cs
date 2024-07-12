@@ -1,7 +1,5 @@
 ﻿
-using eFlow.API.Contracts.Users;
-using eFlow.API.DTOs.Flowers;
-using eFlow.API.DTOs.Users;
+using eFlow.Application.DTOs;
 using eFlow.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +25,8 @@ namespace eFlow.API.Controllers
             try
             {
                 var data = await _userService.GetUsersAsync();
-                var response = new UsersResponse<List<UserDTO>>(
-                    true, data.Select(x => new UserDTO
-                    (x.Name, x.Email, x.Role.ToString())).ToList(),
-                    "Users successful loaded");
+                var response = data.Select(x => new UserDTO
+                    (x.Name, x.Email, x.Role.ToString()));                  
                 return Ok(response);
             }
             catch (Exception ex)
@@ -46,11 +42,9 @@ namespace eFlow.API.Controllers
             try
             {
                 var result = await _userService.GetUserByEmail(email);
-                if (result == null) return NotFound();            
-                var response = new UsersResponse<UserDTO>(
-                    true, new UserDTO
-                    (result.Name, result.Email, result.Role.ToString()),
-                    "User successful loaded");
+                if (result == null) return NotFound();
+                var response = new UserDTO
+                    (result.Name, result.Email, result.Role.ToString());
                 return Ok(response);
             }
             catch (Exception ex)
@@ -73,10 +67,8 @@ namespace eFlow.API.Controllers
 
                 var result = await _userService.GetUserByEmail(email);
                 if (result == null) return NotFound();
-                var response = new UsersResponse<UserDTO>(
-                    true, new UserDTO
-                    (result.Name, result.Email, result.Role.ToString()),
-                    "User successful loaded");
+                var response = new UserDTO
+                    (result.Name, result.Email,result.Role.ToString());
                 return Ok(response);
             }
             catch(Exception ex)

@@ -1,5 +1,5 @@
 ﻿
-using eFlow.Application.Interfaces.Auth;
+using eFlow.Core.Interfaces.Auth;
 using eFlow.Core.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

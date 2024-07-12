@@ -1,6 +1,6 @@
-﻿using eFlow.Application.Interfaces.Auth;
-using eFlow.Application.Interfaces.Caching;
-using eFlow.Application.Interfaces.Repositories;
+﻿using eFlow.Core.Interfaces.Auth;
+using eFlow.Core.Interfaces.Caching;
+using eFlow.Infrastructure.Repositories;
 using eFlow.Application.Services;
 using eFlow.Infrastructure;
 using eFlow.Persistence;

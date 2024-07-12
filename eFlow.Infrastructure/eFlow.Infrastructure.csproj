@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\eFlow.Application\eFlow.Application.csproj" />
+    <ProjectReference Include="..\eFlow.Core\eFlow.Core.csproj" />
   </ItemGroup>
 
 </Project>

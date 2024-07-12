@@ -1,7 +1,7 @@
 ﻿
 using eFlow.Core.Models;
 
-namespace eFlow.Application.Interfaces.Repositories
+namespace eFlow.Infrastructure.Repositories
 {
     public interface IFlowerRepository
     {

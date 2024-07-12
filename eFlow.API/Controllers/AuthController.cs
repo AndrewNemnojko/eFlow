@@ -1,4 +1,4 @@
-﻿using eFlow.API.Contracts;
+﻿
 using eFlow.API.Contracts.Auth;
 using eFlow.Application.Services;
 using eFlow.Core.Models;
@@ -20,36 +20,57 @@ namespace eFlow.API.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(AuthRequest login)
         {
-            var result = await _authService.Login(login.email, login.password);
-            if(!result.IsLogedIn) 
+            try
             {
-                return BadRequest("Failed to login");
+                var result = await _authService.Login(login.email, login.password);
+                if (!result.IsLogedIn)
+                {
+                    return BadRequest("Failed to login");
+                }
+                return Ok(
+                    new AuthResponse
+                    (result.JwtToken!,
+                    result.RefreshToken!));
             }
-            return Ok(
-                new AuthResponse
-                (result.JwtToken!, 
-                result.RefreshToken!, 
-                true, "Successful login"));
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Registration(AuthRequest login)
         {
-            await _authService.Registration(login.email, login.password);
-            return Ok();
+            try
+            {
+                await _authService.Registration(login.email, login.password);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }    
         }      
 
         [HttpPost]
         [Route("refresh-token")]
         public async Task<IActionResult> RefreshToken(RefreshTokenModel model)
         {
-            var data = await _authService.RefreshToken(model);
-            if (!data.IsLogedIn)
+            try
             {
-                return BadRequest("Failed to update access token");
+                var data = await _authService.RefreshToken(model);
+                if (!data.IsLogedIn)
+                {
+                    return BadRequest("Failed to update access token");
+                }
+                return Ok(new AuthResponse(data.JwtToken!, data.RefreshToken!));
+            }          
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
-            return Ok(new AuthResponse(data.JwtToken!, data.RefreshToken!, true, ""));
         }
     }
 }

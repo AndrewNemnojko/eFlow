@@ -1,4 +1,4 @@
-﻿using eFlow.Application.Interfaces.Auth;
+﻿using eFlow.Core.Interfaces.Auth;
 
 namespace eFlow.Infrastructure
 {

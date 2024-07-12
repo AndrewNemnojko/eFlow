@@ -1,6 +1,6 @@
-﻿using eFlow.Application.Interfaces.Caching;
-using eFlow.Application.Interfaces.Repositories;
+﻿using eFlow.Core.Interfaces.Caching;
 using eFlow.Core.Models;
+using eFlow.Infrastructure.Repositories;
 using eFlow.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
