@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace eFlow.API.Controllers
 {
     [ApiController]
-    [Route("auth")]
+    [Route("api/auth")]
     public class AuthController : ControllerBase
     {
         private readonly AuthService _authService;

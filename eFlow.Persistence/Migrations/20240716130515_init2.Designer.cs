@@ -12,8 +12,8 @@ using eFlow.Persistence;
 namespace eFlow.Persistence.Migrations
 {
     [DbContext(typeof(DataDbContext))]
-    [Migration("20240712150454_addbouquet")]
-    partial class addbouquet
+    [Migration("20240716130515_init2")]
+    partial class init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,32 @@ namespace eFlow.Persistence.Migrations
                     b.ToTable("Bouquets");
                 });
 
+            modelBuilder.Entity("eFlow.Persistence.Entities.BouquetSizeEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Available")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid?>("BouquetEntityId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("SubName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BouquetEntityId");
+
+                    b.ToTable("BouquetSizeEntity");
+                });
+
             modelBuilder.Entity("eFlow.Persistence.Entities.FlowerEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -88,6 +114,30 @@ namespace eFlow.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Flowers");
+                });
+
+            modelBuilder.Entity("eFlow.Persistence.Entities.FlowerQuantityEntity", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BouquetSizeEntityId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("FlowerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BouquetSizeEntityId");
+
+                    b.HasIndex("FlowerId");
+
+                    b.ToTable("FlowerQuantityEntity");
                 });
 
             modelBuilder.Entity("eFlow.Persistence.Entities.UserEntity", b =>
@@ -139,6 +189,38 @@ namespace eFlow.Persistence.Migrations
                         .HasForeignKey("FlowersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("eFlow.Persistence.Entities.BouquetSizeEntity", b =>
+                {
+                    b.HasOne("eFlow.Persistence.Entities.BouquetEntity", null)
+                        .WithMany("Sizes")
+                        .HasForeignKey("BouquetEntityId");
+                });
+
+            modelBuilder.Entity("eFlow.Persistence.Entities.FlowerQuantityEntity", b =>
+                {
+                    b.HasOne("eFlow.Persistence.Entities.BouquetSizeEntity", null)
+                        .WithMany("Flowers")
+                        .HasForeignKey("BouquetSizeEntityId");
+
+                    b.HasOne("eFlow.Persistence.Entities.FlowerEntity", "Flower")
+                        .WithMany()
+                        .HasForeignKey("FlowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flower");
+                });
+
+            modelBuilder.Entity("eFlow.Persistence.Entities.BouquetEntity", b =>
+                {
+                    b.Navigation("Sizes");
+                });
+
+            modelBuilder.Entity("eFlow.Persistence.Entities.BouquetSizeEntity", b =>
+                {
+                    b.Navigation("Flowers");
                 });
 #pragma warning restore 612, 618
         }

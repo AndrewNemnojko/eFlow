@@ -10,5 +10,7 @@ namespace eFlow.Persistence.Entities
         public bool Available { get; set; }
         public ICollection<FlowerEntity> Flowers { get; set; } 
             = new List<FlowerEntity>();
+        public ICollection<BouquetSizeEntity> Sizes { get; set; }
+            = new List<BouquetSizeEntity>();
     }
 }

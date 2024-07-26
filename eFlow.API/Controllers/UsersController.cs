@@ -8,7 +8,7 @@ using System.Security.Claims;
 namespace eFlow.API.Controllers
 {
     [ApiController]
-    [Route("users")]  
+    [Route("api/users")]
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
@@ -18,7 +18,7 @@ namespace eFlow.API.Controllers
         }
 
         [HttpGet]
-        [Route("accounts")]
+        [Route("")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllAccounts()
         {

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\eFlow.Core\eFlow.Core.csproj" />
     <ProjectReference Include="..\eFlow.Infrastructure\eFlow.Infrastructure.csproj" />
+    <ProjectReference Include="..\eFlow.Persistence\eFlow.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

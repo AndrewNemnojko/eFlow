@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using eFlow.Core.Interfaces.Files;
+using Microsoft.Extensions.FileProviders;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,13 +30,18 @@ builder.Services.AddDbContext<DataDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IFlowerRepository, FlowerRepository>();
+builder.Services.AddScoped<IBouquetRepository, BouquetRepository>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+builder.Services.AddSingleton<ICacheService, CacheService>();
+builder.Services.AddScoped<IMediaFileService, MediaFileService>();
+
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<BouquetService>();
 builder.Services.AddScoped<FlowerService>();
-builder.Services.AddSingleton<ICacheService, CacheService>();
+
 
 builder.Services.AddAuthentication(opt =>
 {
@@ -89,6 +96,8 @@ builder.Services.AddSwaggerGen(c => {
     });
 });
 
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -101,6 +110,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 
